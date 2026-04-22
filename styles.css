@@ -1,0 +1,191 @@
+/* =========================
+   BASE
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #eff6ff, #f3e8ff);
+    min-height: 100vh;
+    padding-top: 80px;
+    color: #333;
+}
+
+/* =========================
+   HEADER
+========================= */
+.top-header {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 900px;
+    height: 50px;
+
+    background: white;
+    border-radius: 12px;
+    padding: 0 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.top-link {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.top-link:hover {
+    background: #e0ecff;
+}
+
+.logout {
+    color: red;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+.app-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.glass-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   BUSCADOR
+========================= */
+.search-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+.bus-card {
+    background: #eff6ff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* =========================
+   BOTÓN VER RUTA
+========================= */
+.view-route-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.view-route-btn:hover {
+    background: #1d4ed8;
+}
+
+/* =========================
+   BOTÓN VOLVER (MEJORADO)
+========================= */
+.back-button {
+    background: #e0ecff;
+    color: #1d4ed8;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background: #c7dbff;
+}
+
+/* =========================
+   PARADAS
+========================= */
+.stops-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.stops-list {
+    border-left: 3px solid #2563eb;
+    padding-left: 15px;
+}
+
+.stop-item {
+    margin-bottom: 10px;
+}
+
+.stop-content {
+    background: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* =========================
+   MENSAJES
+========================= */
+.msg {
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.msg.success {
+    background: #d1fae5;
+}
+
+.msg.error {
+    background: #fee2e2;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+.empty-state,
+.no-results {
+    text-align: center;
+    padding: 15px;
+}

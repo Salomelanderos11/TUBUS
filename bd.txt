@@ -1,0 +1,93 @@
+CREATE DATABASE tubus_db;
+USE tubus_db;
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    rol ENUM('admin','usuario') DEFAULT 'usuario'
+);
+
+
+CREATE TABLE rutas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_ruta VARCHAR(150) NOT NULL,
+    descripcion TEXT NOT NULL,
+    conductor VARCHAR(100) NOT NULL,
+    paradas TEXT NOT NULL
+);
+
+
+CREATE TABLE sugerencias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO usuarios (nombre, email, password_hash, rol)
+VALUES (
+    'Admin',
+    'admin@tibus.com',
+    '$2y$10$wHq7s6z8w6w7e6r6s6t6uO7Hj5Kq9XzZf6mJq2lYz2lQ5u0p8X9yK',
+    'admin'
+);
+
+
+
+
+
+
+INSERT INTO rutas (nombre_ruta, descripcion, conductor, paradas) VALUES
+('Buenos Aires - Obregón','Conecta la Colonia Buenos Aires con el centro y la Obregón','Juan Pérez','Colonia Buenos Aires|Mercado de Abastos|Catedral|Plaza Fórum|Avenida Obregón|Parque Revolución|Clínica del Mar|Mercado de las Flores|Plaza Sendero|Central de Autobuses|Colonia Obregón'),
+
+('Canal 3','Recorre el sector del Canal 3 y sus alrededores','Luis García','Canal 3|Plaza Sendero|Universidad Autónoma de Sinaloa|Parque Las Riberas|Jardín Botánico|Zoológico de Culiacán|Plaza Galerías|Fórum Culiacán|Parque 87|Ciudad Universitaria|Hospital Civil'),
+
+('Zapata - Centro','Desde la Colonia Emiliano Zapata hasta el corazón de Culiacán','Carlos López','Colonia Emiliano Zapata|Central Camionera|Palacio de Gobierno|Centro Histórico|Mercado Garmendia|Plaza de Armas|Catedral|Museo de Arte de Sinaloa|Malecón Viejo|Puente Negro|Parque Constitución'),
+
+('Barrancos - Centro','Une la zona de Barrancos con el centro de la ciudad','Pedro Martínez','Barrancos|Plaza Cinépolis|Hospital General|Mercado Garmendia|Plaza Fiesta|Plaza Fórum|Catedral|Palacio Municipal|Mercado de Abastos|Colonia Las Vegas|Colonia Pemex'),
+
+('Humaya - Centro','Conecta la zona de Humaya con el centro de Culiacán','Miguel Torres','Humaya|Jardines del Humaya|Plaza Fiesta|Malecón Viejo|Puente Negro|Parque Las Riberas|Plaza Galerías|Fórum Culiacán|Catedral|Centro Histórico|Mercado Garmendia'),
+
+('Aguaruto - Centro','Desde Aguaruto hasta el centro de Culiacán','José Ramírez','Aguaruto|La Primavera|Ciudad Universitaria|Parque 87|Jardín Botánico|Zoológico de Culiacán|Plaza Galerías|Fórum Culiacán|Catedral|Centro Histórico|Mercado Garmendia'),
+
+('Sanalona - Centro','Conecta Sanalona con el centro de la ciudad','Roberto Díaz','Sanalona|El Diez|La Conquista|Tres Ríos|Plaza Cinépolis|Hospital General|Mercado Garmendia|Plaza Fiesta|Plaza Fórum|Catedral|Palacio Municipal'),
+
+('Costerita - Centro','Desde La Costerita hasta el centro de Culiacán','Fernando Cruz','La Costerita|Campo El Diez|Aeropuerto Internacional de Culiacán|Central de Abastos|Mercado de las Flores|Plaza Sendero|Central de Autobuses|Colonia Obregón|Parque Revolución|Clínica del Mar'),
+
+('Lomas del Pedregal - Centro','Une Lomas del Pedregal con el centro de la ciudad','Ricardo Vargas','Lomas del Pedregal|Plaza Explanada|Parque Acuático|Clínica del IMSS|Mercado de la Cruz|Plaza San Isidro|Catedral|Palacio de Gobierno'),
+
+('Valle Alto - Centro','Desde Valle Alto hasta el centro de Culiacán','Daniel Moreno','Valle Alto|Plaza Ceiba|Colegio Sinaloa|Hospital Ángeles|Plaza Galerías|Fórum Culiacán|Catedral|Centro Histórico'),
+
+('Quintas - Centro','Conecta el sector de Las Quintas con el centro','Héctor Ríos','Las Quintas|Plaza Fiesta|Parque Constitución|Mercado Garmendia|Catedral|Palacio Municipal|Malecón Viejo'),
+
+('Cañadas - Centro','Desde Las Cañadas hasta el centro de Culiacán','Jorge Herrera','Las Cañadas|Plaza Sendero|Universidad de Occidente|Hospital de la Mujer|Plaza Fórum|Catedral|Centro Histórico'),
+
+('Stanza - Centro','Une los fraccionamientos Stanza con el centro','Raúl Ortega','Stanza Toscana|Stanza Ferrara|Plaza Ventura|Parque 87|Ciudad Universitaria|Catedral|Centro Histórico'),
+
+('Alturas del Sur - Centro','Desde Alturas del Sur hasta el centro de Culiacán','Marco Flores','Alturas del Sur|Plaza Sur|Clínica 36 IMSS|Mercado de Abastos|Catedral|Centro Histórico|Palacio de Gobierno'),
+
+('El Diez - Centro','Conecta la sindicatura de El Diez con el centro','Oscar Castro','El Diez|Campo El Diez|Aeropuerto Internacional de Culiacán|Central de Abastos|Mercado de las Flores|Plaza Sendero|Central de Autobuses|Colonia Obregón'),
+
+('Huizaches - Centro','Desde la Colonia Huizaches hasta el centro','Andrés Reyes','Huizaches|Plaza Ley del Río|Parque 87|Mercado de Abastos|Catedral|Centro Histórico|Palacio de Gobierno'),
+
+('Margarita - Centro','Conecta la Colonia Margarita con el centro','Sergio Guzmán','Colonia Margarita|Plaza Fórum|Catedral|Mercado Garmendia|Malecón Viejo|Parque Las Riberas'),
+
+('Mandarina - Centro','Desde la Colonia Mandarina hasta el centro','Luis Navarro','Colonia Mandarina|Plaza Sendero|Universidad Autónoma de Sinaloa|Parque 87|Catedral|Centro Histórico'),
+
+('Lombardo - Centro','Une la Colonia Lombardo Toledano con el centro','Gerardo Ponce','Colonia Lombardo Toledano|Central Camionera|Palacio de Gobierno|Catedral|Mercado Garmendia|Plaza de Armas'),
+
+('Díaz Ordaz - Centro','Desde la Colonia Díaz Ordaz hasta el centro','Iván Salazar','Colonia Díaz Ordaz|Plaza Fiesta|Hospital General|Mercado de Abastos|Catedral|Centro Histórico'),
+
+('Infonavit Humaya - Centro','Conecta Infonavit Humaya con el centro','Manuel Peña','Infonavit Humaya|Jardines del Humaya|Plaza Fiesta|Malecón Viejo|Catedral|Centro Histórico'),
+
+('Villa Satélite - Centro','Desde Villa Satélite hasta el centro','Alberto Vega','Villa Satélite|Plaza Ley del Río|Parque 87|Mercado de Abastos|Catedral|Centro Histórico'),
+
+('Alturas del Sur - Centro 2','Otra variante de Alturas del Sur','Francisco Lara','Alturas del Sur|Plaza Sur|Clínica 36 IMSS|Mercado de Abastos|Catedral|Centro Histórico|Palacio de Gobierno'),
+
+('San Isidro - Centro','Conecta la Colonia San Isidro con el centro','Rubén Castillo','Colonia San Isidro|Plaza San Isidro|Mercado de la Cruz|Catedral|Centro Histórico|Palacio de Gobierno'),
+
+('La Conquista - Centro','Desde La Conquista hasta el centro de Culiacán','Eduardo Méndez','La Conquista|Plaza Cinépolis|Hospital General|Mercado Garmendia|Plaza Fiesta|Plaza Fórum|Catedral|Palacio Municipal');
