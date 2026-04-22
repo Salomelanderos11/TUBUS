@@ -60,6 +60,8 @@ if ($res && $res->num_rows > 0) {
 
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
@@ -88,7 +90,16 @@ if ($res && $res->num_rows > 0) {
 
 <!-- APP REACT -->
 <div id="root"></div>
+<div class="app-container" style="margin-top: 20px;">
+    <div class="glass-card">
+        <h2 style="margin-bottom:10px;"><i class="fa-solid fa-map-location-dot"></i> Rutas en Culiacán</h2>
+        <div id="map" style="width: 100%; height: 450px; border-radius: 12px; border: 1px solid #e2e8f0; z-index: 1;">
+            <p style="text-align:center; padding-top:200px; color:#9ca3af;">Cargando mapa de Culiacán...</p>
+        </div>
+    </div>
+</div>
 
+    
 <!-- SUGERENCIAS -->
 <div class="app-container" style="margin-top: 20px;">
     <div class="glass-card">
@@ -140,6 +151,11 @@ if ($res && $res->num_rows > 0) {
 </div>
 
 <script>
+
+
+
+
+    
 /*
  * React:
  * - Carga rutas desde obtener_rutas.php
@@ -321,6 +337,77 @@ function App() {
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
 root.render(React.createElement(App));
+</script>
+<script>
+    // 1. Inicializar el mapa (Culiacán por defecto)
+    const map = L.map('map').setView([24.8090, -107.3940], 13);
+
+    // 2. Capa de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // --- FUNCIÓN DE GEOLOCALIZACIÓN ---
+    function encontrarMiUbicacion() {
+        if (!navigator.geolocation) {
+            alert("Tu navegador no soporta geolocalización");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            // Centrar mapa en tu ubicación
+            map.setView([lat, lng], 15);
+
+            // Agregar un marcador especial para el usuario (Círculo azul)
+            const miUbicacionMarker = L.circleMarker([lat, lng], {
+                radius: 10,
+                fillColor: "#1e40af", // Azul fuerte como tu tema
+                color: "#fff",
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).addTo(map);
+
+            miUbicacionMarker.bindPopup("<b>Estás aquí</b>").openPopup();
+
+        }, (error) => {
+            console.warn("Error de geolocalización: ", error.message);
+            alert("No se pudo obtener tu ubicación. Asegúrate de dar permisos.");
+        });
+    }
+
+    // --- FUNCIÓN DE OVERPASS API ---
+    async function cargarParadas() {
+        const bounds = map.getBounds();
+        const sw = bounds.getSouthWest();
+        const ne = bounds.getNorthEast();
+
+        const query = `[out:json];node["highway"="bus_stop"](${sw.lat},${sw.lng},${ne.lat},${ne.lng});out;`;
+        const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            data.elements.forEach(element => {
+                L.marker([element.lat, element.lon])
+                 .addTo(map)
+                 .bindPopup(`<b>Parada de TuBus</b><br>${element.tags.name || 'Parada s/n'}`);
+            });
+        } catch (e) {
+            console.error("Error en Overpass", e);
+        }
+    }
+
+    // Ejecutar funciones al cargar
+    map.on('moveend', cargarParadas);
+    cargarParadas();
+    
+    // Llamar a la ubicación actual automáticamente al iniciar
+    encontrarMiUbicacion();
 </script>
 
 </body>
