@@ -2,7 +2,7 @@
 $host = "127.0.0.1";
 $user = "root";
 $pass = "";
-$db   = "tubus";
+$db   = "tubus_db";
 $port = 3306;
 
 $conn = new mysqli($host, $user, $pass, $db, $port);
